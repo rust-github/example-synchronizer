@@ -38,7 +38,16 @@ jobs:
 
     - name: update example
       run: |
+        mkdir old_sources
+        mv old_example/src/* old_sources
         cd old_example
+        rm -rf *
+        cp -r ../rust-gh-example .
+        rm src/*
+        mv ../old_sources/* src
+
+    - name: commit example
+      run: |
         git config user.name github-actions
         git config user.email github-actions@github.com
         git add .
