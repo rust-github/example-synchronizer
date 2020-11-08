@@ -1,0 +1,49 @@
+name: Synchronize the example with the template
+on:
+  schedule:
+    # every hour
+    - cron: "0 * * * *"
+
+jobs:
+  remind_token:
+    runs-on: ubuntu-latest
+    steps:
+    - name: install cargo generate
+      uses: actions-rs/install@v0.1
+      with:
+        crate: cargo-generate
+        version: latest
+
+    - name: Create new example
+      run: |
+        cargo generate --git https://github.com/rust-github/template.git --name rust-gh-example
+        cd rust-gh-example
+
+    - name: replace username
+      run: |
+        sed -i 's#{\[username\]}#MyUsername#g' $(find . -type f -name '*.md' -o -name '*.yml' -o -name '*.toml')
+        cd ..
+
+    - name: Checkout old example
+      uses: actions/checkout@v2
+      with:
+        repository: rust-github/rust-gh-example
+        path: old_example
+
+    - name: move sources from old to new example
+      run: |
+        rm rust-gh-example/src/main.rs
+        cp old_example/src/* rust-gh-example/src/
+
+    - name: update example
+      run: |
+        cd old_example
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add .
+        if [ -n "$(git status --porcelain)" ]; then
+          git commit -m "automatic update" -m "from $GITHUB_REPOSITORY@$GITHUB_SHA"
+          git push
+        else
+          echo "nothing to commit";
+        fi
