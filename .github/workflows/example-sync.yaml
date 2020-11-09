@@ -19,12 +19,11 @@ jobs:
     - name: Create new example
       run: |
         cargo generate --git https://github.com/rust-github/template.git --name rust-gh-example
-        cd rust-gh-example
 
     - name: replace username
       run: |
+        cd rust-gh-example
         sed -i 's#{\[username\]}#MyUsername#g' $(find . -type f -name '*.md' -o -name '*.yml' -o -name '*.toml')
-        cd ..
 
     - name: Checkout old example
       uses: actions/checkout@v2
@@ -46,12 +45,12 @@ jobs:
         mkdir old_sources
         mv old_example/src/* old_sources
         cd old_example
-        rm -rf *
+        rm -rf * .gitignore .github/
         echo "ls ../rust-gh-example:"
         ls ../rust-gh-example
         echo "ls ../rust-gh-example/src:"
         ls ../rust-gh-example/src
-        cp -r ../rust-gh-example/* .
+        mv ../rust-gh-example/* ../rust-gh-example/.github ../rust-gh-example/.gitignore .
         echo "ls -al:"
         ls -al
         rm src/*
@@ -59,8 +58,7 @@ jobs:
 
     - name: commit example
       run: |
-        echo "pwd:"
-        pwd
+        cd old_example
         git config user.name github-actions
         git config user.email github-actions@github.com
         git add .
