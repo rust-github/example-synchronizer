@@ -33,6 +33,8 @@ jobs:
 
     - name: move sources from old to new example
       run: |
+        echo "ls -al:"
+        ls -al
         rm rust-gh-example/src/main.rs
         cp old_example/src/* rust-gh-example/src/
 
@@ -47,8 +49,8 @@ jobs:
         echo "ls ../rust-gh-example/src:"
         ls ../rust-gh-example/src
         cp -r ../rust-gh-example/* .
-        echo "ls:"
-        ls
+        echo "ls -al:"
+        ls -al
         rm src/*
         mv ../old_sources/* src
 
