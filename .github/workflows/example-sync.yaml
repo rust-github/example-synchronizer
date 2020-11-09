@@ -30,7 +30,7 @@ jobs:
       with:
         repository: rust-github/rust-gh-example
         path: old_example
-        token: ${{ secrets.GITHUB_TOKEN }}
+        ssh-key: ${{ secrets.GITHUB_TOKEN }}
 
     - name: move sources from old to new example
       run: |
