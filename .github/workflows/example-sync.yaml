@@ -46,7 +46,7 @@ jobs:
         ls ../rust-gh-example
         echo "ls ../rust-gh-example/src:"
         ls ../rust-gh-example/src
-        cp -r ../rust-gh-example .
+        cp -r ../rust-gh-example/* .
         echo "ls:"
         ls
         rm src/*
