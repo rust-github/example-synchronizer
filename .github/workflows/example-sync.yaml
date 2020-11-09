@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  remind_token:
+  synchronize_example:
     runs-on: ubuntu-latest
     steps:
     - name: install cargo generate
