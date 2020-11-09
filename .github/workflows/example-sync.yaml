@@ -3,6 +3,7 @@ on:
   schedule:
     # every 4 hours
     - cron: "0 */4 * * *"
+  push:
   workflow_dispatch:
 
 jobs:
