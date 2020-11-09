@@ -42,7 +42,10 @@ jobs:
         mv old_example/src/* old_sources
         cd old_example
         rm -rf *
+        ls ../rust-gh-example
+        ls ../rust-gh-example/src
         cp -r ../rust-gh-example .
+        ls
         rm src/*
         mv ../old_sources/* src
 
