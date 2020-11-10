@@ -23,7 +23,7 @@ jobs:
     - name: replace username
       run: |
         cd rust-gh-example
-        sed -i 's#{\[username\]}#MyUsername#g' $(find . -type f -name '*.md' -o -name '*.yml' -o -name '*.toml')
+        sed -i 's#{\[username\]}#rust-github#g' $(find . -type f -name '*.md' -o -name '*.yml' -o -name '*.toml')
 
     - name: Checkout old example
       uses: actions/checkout@v2
@@ -32,14 +32,16 @@ jobs:
         path: old_example
         ssh-key: ${{ secrets.GH_EXAMPLE_DEPLOY_SECRET }}
 
-    - name: move sources from old to new example
+    - name: move sources and Cargo.toml from old to new example
       run: |
         echo "pwd:"
         pwd
         echo "ls -al:"
         ls -al
         rm rust-gh-example/src/main.rs
+        rm rust-gh-example/Cargo.toml
         cp old_example/src/* rust-gh-example/src/
+        cp old_example/Cargo.toml rust-gh-example/Cargo.toml
 
     - name: update example
       run: |
