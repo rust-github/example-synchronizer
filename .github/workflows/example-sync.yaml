@@ -32,7 +32,7 @@ jobs:
         path: old_example
         ssh-key: ${{ secrets.GH_EXAMPLE_DEPLOY_SECRET }}
 
-    - name: move sources and Cargo.toml from old to new example
+    - name: move sources, mit license and Cargo.toml from old to new example
       run: |
         echo "pwd:"
         pwd
@@ -40,8 +40,10 @@ jobs:
         ls -al
         rm rust-gh-example/src/main.rs
         rm rust-gh-example/Cargo.toml
+        rm rust-gh-example/LICENSE-MIT
         cp old_example/src/* rust-gh-example/src/
         cp old_example/Cargo.toml rust-gh-example/Cargo.toml
+        cp old_example/LICENSE-MIT rust-gh-example/LICENSE-MIT
 
     - name: update example
       run: |
