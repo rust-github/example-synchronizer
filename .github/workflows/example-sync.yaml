@@ -18,12 +18,7 @@ jobs:
 
     - name: Create new example
       run: |
-        cargo generate --git https://github.com/rust-github/template.git --name rust-gh-example
-
-    - name: replace username
-      run: |
-        cd rust-gh-example
-        sed -i 's#{\[username\]}#rust-github#g' $(find . -type f -name '*.md' -o -name '*.yml' -o -name '*.toml')
+        cargo generate --git https://github.com/rust-github/template.git --name rust-gh-example --template-values-file template_values.toml
 
     - name: Checkout old example
       uses: actions/checkout@v2
