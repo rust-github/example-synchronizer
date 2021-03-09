@@ -19,6 +19,8 @@ jobs:
 
     - name: Create new example
       run: |
+        pwd
+        ls
         cargo generate --git https://github.com/rust-github/template.git --name rust-gh-example --template-values-file template_values.toml
 
     - name: Checkout old example
