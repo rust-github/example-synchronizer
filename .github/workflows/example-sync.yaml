@@ -4,6 +4,7 @@ on:
     # every 4 hours
     - cron: "0 */4 * * *"
   push:
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
